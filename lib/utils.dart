@@ -1,9 +1,8 @@
 import 'dart:io';
 
 String getUserHomeDir() {
-  dynamic home;
   Map<String, String> envVars = Platform.environment;
-  home = envVars['UserProfile'];
+  dynamic home = envVars['UserProfile'];
   return home;
 }
 
