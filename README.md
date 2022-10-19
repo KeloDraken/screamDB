@@ -1,2 +1,3 @@
-A sample command-line application with an entrypoint in `bin/`, library code
-in `lib/`, and example unit test in `test/`.
+# ScreamDB
+
+A, blazingly-fast, document database made with the dart programming language.
