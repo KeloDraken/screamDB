@@ -7,5 +7,8 @@ String getUserHomeDir() {
 }
 
 void createScreamDirectory() async {
-  await Directory("${getUserHomeDir()}/.screamDB").create(recursive: true);
+  String userHomeDir = getUserHomeDir();
+  final bool pathExists = await Directory(userHomeDir).exists();
+  if(pathExists) return;
+  await Directory("$userHomeDir/.screamDB").create(recursive: true);
 }
