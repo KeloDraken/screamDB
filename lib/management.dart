@@ -1,21 +1,22 @@
 import 'dart:io';
 
+import 'package:scream_db/messages.dart';
 import 'package:scream_db/utils.dart';
 
 void _createDatabase() async {
   final String userHomeDir = getUserHomeDir();
   final bool pathExists = await Directory(userHomeDir).exists();
   if (pathExists) {
-    print("Database already exists");
+    printWarningMessage("Database already exists");
     return;
   }
 
-  print("Creating database...");
+  printMessage("Creating database...");
 }
 
 void executeCommandFromArgs(List<String> arguments) {
   if (arguments.isEmpty) {
-    print("No arguments specified");
+    printMessage("No arguments specified");
     return;
   }
 
@@ -25,14 +26,14 @@ void executeCommandFromArgs(List<String> arguments) {
 
   String command = arguments[0];
   if (!mapToCommand.containsKey(command)) {
-    print("No such command: $command");
+    printErrorMessage("No such command: $command");
     return;
   }
 
   Function? execute = mapToCommand[command];
 
   if (execute == null) {
-    print("Couldn't execute command: $command");
+    printErrorMessage("Couldn't execute command: $command");
     return;
   }
 
