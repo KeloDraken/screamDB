@@ -12,6 +12,10 @@ void printMessage(String message) {
   print(chalk.blackBright(message));
 }
 
+void printSuccessMessage(String message) {
+  print(chalk.brightGreen(message));
+}
+
 void printInfoMessage(String message) {
   print(chalk.bold(message));
 }
