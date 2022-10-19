@@ -1,4 +1,15 @@
-void _createDatabase() {
+import 'dart:io';
+
+import 'package:scream_db/utils.dart';
+
+void _createDatabase() async {
+  final String userHomeDir = getUserHomeDir();
+  final bool pathExists = await Directory(userHomeDir).exists();
+  if (pathExists) {
+    print("Database already exists");
+    return;
+  }
+
   print("Creating database...");
 }
 
