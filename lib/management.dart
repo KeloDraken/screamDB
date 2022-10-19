@@ -3,10 +3,21 @@ import 'dart:io';
 import 'package:scream_db/messages.dart';
 import 'package:scream_db/utils.dart';
 
-void _createDatabase() async {
+dynamic _getDbName() async {
   final String userHomeDir = getUserHomeDir();
-  final bool pathExists = await Directory(userHomeDir).exists();
-  if (pathExists) {
+
+  printMessage("Database name: ");
+  String? dbName = stdin.readLineSync();
+  final String dbDir = "$userHomeDir/$dbName";
+  final bool pathExists = await Directory(dbDir).exists();
+
+  if (pathExists) return [true, dbDir];
+  return [false, dbDir];
+}
+
+void _createDatabase() {
+  dynamic dbExists, dbDir = _getDbName();
+  if (dbExists) {
     printWarningMessage("Database already exists");
     return;
   }
