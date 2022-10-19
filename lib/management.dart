@@ -45,6 +45,17 @@ void _deleteDatabase() async {
   }
 
   printMessage("Are you sure you want to delete the database? ");
+
+  List<String> affirmative = ["yes", "y"];
+  String? confirm = stdin.readLineSync();
+
+  if (affirmative.contains(confirm!.toLowerCase())) {
+    printMessage("Deleting database...");
+    Directory(dbDir).delete(recursive: true);
+    printSuccessMessage("Successfully deleted database.");
+  } else {
+    printMessage("Please enter \"yes\" or \"y\" to confirm your intent.");
+  }
 }
 
 void executeCommandFromArgs(List<String> arguments) {
