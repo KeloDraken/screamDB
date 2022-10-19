@@ -21,6 +21,8 @@ void logo() {
       ░  ░ ░         ░        ░  ░     ░  ░       ░   
          ░                                            
 """);
+  printInfoMessage("version: 0.0.1");
+
 }
 
 void createScreamDirectory() async {

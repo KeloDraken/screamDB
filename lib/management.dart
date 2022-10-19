@@ -3,26 +3,31 @@ import 'dart:io';
 import 'package:scream_db/messages.dart';
 import 'package:scream_db/utils.dart';
 
-dynamic _getDbName() async {
-  final String userHomeDir = getUserHomeDir();
-
+Future<List> _getDbName() async {
   printMessage("Database name: ");
+
+  final String userHomeDir = getUserHomeDir();
   String? dbName = stdin.readLineSync();
   final String dbDir = "$userHomeDir/$dbName";
-  final bool pathExists = await Directory(dbDir).exists();
 
-  if (pathExists) return [true, dbDir];
-  return [false, dbDir];
+  bool pathExists = false;
+  await Directory(dbDir).exists().then((value) => pathExists = value);
+
+  return Future<List>.value([pathExists, dbDir]);
 }
 
 void _createDatabase() {
-  dynamic dbExists, dbDir = _getDbName();
+  bool dbExists = false;
+  String dbDir = "";
+
+  _getDbName().then((value) => {dbExists = value[0], dbDir = value[1]});
+
   if (dbExists) {
     printWarningMessage("Database already exists");
     return;
   }
 
-  printMessage("Creating database...");
+  printMessage("Creating database... in $dbDir");
 }
 
 void executeCommandFromArgs(List<String> arguments) {
@@ -32,6 +37,7 @@ void executeCommandFromArgs(List<String> arguments) {
   }
 
   Map<String, Function> mapToCommand = {
+    "about": logo,
     "newdb": _createDatabase,
   };
 

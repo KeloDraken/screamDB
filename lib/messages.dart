@@ -11,3 +11,7 @@ void printWarningMessage(String message) {
 void printMessage(String message) {
   print(chalk.blackBright(message));
 }
+
+void printInfoMessage(String message) {
+  print(chalk.bold(message));
+}
